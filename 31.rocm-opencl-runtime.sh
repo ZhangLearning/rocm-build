@@ -14,7 +14,7 @@ cmake \
     -Dhsa-runtime64_DIR=$ROCM_INSTALL_DIR/lib/cmake/hsa-runtime64 \
     -DCPACK_PACKAGING_INSTALL_PREFIX=$ROCM_INSTALL_DIR/opencl \
     -G Ninja \
-    $ROCM_GIT_DIR/ROCm-OpenCL-Runtime
+    $ROCM_GIT_DIR/ROCm-OpenCL-Runtime/api/opencl/khronos/icd
 
 cmake --build .
 cmake --build . --target package
