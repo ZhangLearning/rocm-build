@@ -10,11 +10,11 @@ mkdir -p $ROCM_BUILD_DIR/rocsolver
 cd $ROCM_BUILD_DIR/rocsolver
 pushd .
 
-START_TIME=`date +%s`
+START_TIME=$(date +%s)
 
 CXX=$ROCM_INSTALL_DIR/hip/bin/hipcc cmake \
     -DAMDGPU_TARGETS=$AMDGPU_TARGETS \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=Debug \
     -DCPACK_SET_DESTDIR=OFF \
     -DCPACK_PACKAGING_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
     -DCMAKE_INSTALL_PREFIX=rocsolver-install \
@@ -23,11 +23,11 @@ CXX=$ROCM_INSTALL_DIR/hip/bin/hipcc cmake \
 
 cmake --build .
 cmake --build . --target package
-sudo dpkg -i *.deb
+# sudo dpkg -i *.deb
+cmake --install .
 
-END_TIME=`date +%s`
-EXECUTING_TIME=`expr $END_TIME - $START_TIME`
+END_TIME=$(date +%s)
+EXECUTING_TIME=$(expr $END_TIME - $START_TIME)
 echo "elapse : "$EXECUTING_TIME"s"
 
 popd
-

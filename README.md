@@ -51,7 +51,7 @@ export PATH=~/bin:$PATH
 ### cmake version
 
 **Note**: rocBLAS need cmake-3.18.6 from ROCm-5.3. The version of default cmake from ubuntu-20.04 is cmake-3.16.3.
-We have to download <https://cmake.org/files/v3.18/cmake-3.18.6-Linux-x86_64.tar.gz> and unpack it to `/home/work/local`,
+We have to download <https://cmake.org/files/v3.18/cmake-3.18.6-Linux-x86_64.tar.gz> and unpack it to `${DEV_ROCM_HOME}/local`,
 and execute `source env.sh` to add custom cmake to PATH environment variables.
 If you want to use other location, please modify `env.sh`.
 
@@ -62,4 +62,3 @@ If you want to use other location, please modify `env.sh`.
 * [navi14](navi14) - Experiment scripts for building navi14 GPU.
 * [check](check) - Codes for check whether ROCm can run successfully.
 * [ubuntu2204](ubuntu2204) - Patches for ubuntu-22.04.
-

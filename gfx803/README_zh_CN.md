@@ -68,7 +68,7 @@ CXX=/opt/rocm/bin/hipcc cmake -lpthread \
     -DTensile_LOGIC=asm_full \
     -DTensile_ARCHITECTURE=all \
     -DTensile_CODE_OBJECT_VERSION=V3 \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=Debug \
     -DBUILD_WITH_TENSILE_HOST=ON \
     -DTensile_LIBRARY_FORMAT=yaml \
     -DRUN_HEADER_TESTING=OFF \
@@ -84,7 +84,8 @@ CXX=/opt/rocm/bin/hipcc cmake -lpthread \
 
 make -j
 make package
-sudo dpkg -i *.deb
+# sudo dpkg -i *.deb
+make install
 
 ```
 
@@ -92,7 +93,7 @@ sudo dpkg -i *.deb
 
 ### 问题描述
 
-pytorch官方网站提供了一个beta版的Pytorch-1.9.0。 
+pytorch官方网站提供了一个beta版的Pytorch-1.9.0。
 <https://pytorch.org/get-started/locally/>
 
 一运行就会报错。
@@ -130,13 +131,13 @@ cd pytorch
 git checkout v1.9.0
 git submodule update --init --recursive
 
-git apply /home/work/rocm-build/patch/pytorch-rocm43-1.patch
+git apply ${DEV_ROCM_HOME}/rocm-build/patch/pytorch-rocm43-1.patch
 
 sudo apt install -y libopencv-highgui4.2 libopenblas-dev python3-dev python3-pip
 pip3 install -r requirements.txt
 export PATH=/opt/rocm/bin:$PATH \
     ROCM_PATH=/opt/rocm \
-    HIP_PATH=/opt/rocm/hip 
+    HIP_PATH=/opt/rocm/hip
 export PYTORCH_ROCM_ARCH=gfx803
 python3 tools/amd_build/build_amd.py
 USE_ROCM=1 USE_NINJA=1 python3 setup.py bdist_wheel
@@ -151,7 +152,7 @@ PS: 对应ROCm-4.2的pytorch-1.9.0会报错找不到 libtinfo.so.5 。
 Traceback (most recent call last):
   File "test-pytorch-rocblas.py", line 4, in <module>
     import torch
-  File "/home/work/.local/lib/python3.8/site-packages/torch/__init__.py", line 197, in <module>
+  File "${DEV_ROCM_HOME}/.local/lib/python3.8/site-packages/torch/__init__.py", line 197, in <module>
     from torch._C import *  # noqa: F403
 ImportError: libtinfo.so.5: cannot open shared object file: No such file or directory
 
@@ -163,6 +164,3 @@ ImportError: libtinfo.so.5: cannot open shared object file: No such file or dire
 sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so /usr/lib/x86_64-linux-gnu/libtinfo.so.5
 
 ```
-
-
-

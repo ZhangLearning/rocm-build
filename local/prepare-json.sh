@@ -4,18 +4,17 @@ set -e
 
 pushd .
 
-scp work@192.168.31.185:/media/work/hgst1/backup-1000/gitrepo/json-3.9.1.tar.gz /home/work/local
+scp work@192.168.31.185:/media/work/hgst1/backup-1000/gitrepo/json-3.9.1.tar.gz ${DEV_ROCM_HOME}/local
 
-tar xf /home/work/local/json-3.9.1.tar.gz -C /home/work/local/ 
+tar xf ${DEV_ROCM_HOME}/local/json-3.9.1.tar.gz -C ${DEV_ROCM_HOME}/local/
 
-mkdir -p /home/work/local/json/build
-cd /home/work/local/json/build
+mkdir -p ${DEV_ROCM_HOME}/local/json/build
+cd ${DEV_ROCM_HOME}/local/json/build
 
 cmake .. -DJSON_MultipleHeaders=ON -DJSON_BuildTests=Off
 
 make -j
 
-sudo make install
+sudo cmake --install .
 
 popd
-

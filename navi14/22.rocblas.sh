@@ -27,7 +27,7 @@ CXX=$ROCM_INSTALL_DIR/bin/hipcc cmake \
     -DTensile_ARCHITECTURE=gfx1012 \
     -DTensile_CODE_OBJECT_VERSION=V3 \
     -DTensile_SEPARATE_ARCHITECTURES=OFF \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=Debug \
     -DTensile_TEST_LOCAL_PATH=$ROCM_GIT_DIR/Tensile \
     -DTensile_LIBRARY_FORMAT=msgpack \
     -DRUN_HEADER_TESTING=OFF \
@@ -40,11 +40,11 @@ CXX=$ROCM_INSTALL_DIR/bin/hipcc cmake \
     $ROCM_GIT_DIR/rocBLAS
 ninja
 ninja package
-sudo dpkg -i *.deb
+# sudo dpkg -i *.deb
+cmake --install .
 
 END_TIME=`date +%s`
 EXECUTING_TIME=`expr $END_TIME - $START_TIME`
 echo "elapse : "$EXECUTING_TIME"s"
 
 popd
-

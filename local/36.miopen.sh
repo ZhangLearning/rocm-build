@@ -11,7 +11,7 @@ START_TIME=`date +%s`
 CXX=$ROCM_INSTALL_DIR/llvm/bin/clang++ cmake \
     -DMIOPEN_USE_COMPOSABLEKERNEL=OFF \
     -DAMDGPU_TARGETS=$AMDGPU_TARGETS \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=Debug \
     -DMIOPEN_USE_MLIR=0 \
     -DCPACK_SET_DESTDIR=OFF \
     -DCPACK_PACKAGING_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
@@ -21,11 +21,11 @@ CXX=$ROCM_INSTALL_DIR/llvm/bin/clang++ cmake \
 
 cmake --build .
 cmake --build . --target package
-sudo dpkg -i *.deb
+# sudo dpkg -i *.deb
+cmake --install .
 
 END_TIME=`date +%s`
 EXECUTING_TIME=`expr $END_TIME - $START_TIME`
 echo "elapse : "$EXECUTING_TIME"s"
 
 popd
-

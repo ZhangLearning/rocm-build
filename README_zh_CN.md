@@ -1,16 +1,10 @@
-# rocm-build 5.4
+# rocm-build 5.7
 
 [English Version](README.md)
 
-### 感谢
-
-感谢 [rigtorp](https://github.com/rigtorp) 提供的 <https://gist.github.com/rigtorp/d9483af100fb77cee57e4c9fa3c74245> ，包含了编译HIP的构建步骤。
-
-感谢 [jlgreathouse](https://github.com/jlgreathouse) 提供的 <https://github.com/RadeonOpenCompute/Experimental_ROC> ，包含了ROCm-2.0的构建步骤。
-
 ### 开始
 
-我的构建环境是 Ubuntu-20.04.5 。
+我的构建环境是 Ubuntu-22.04.3 。
 
 首先使用 repo 下载项目源码 <https://rocmdocs.amd.com/en/latest/Installation_Guide/Installation-Guide.html#getting-the-rocm-source-code>，
 然后根据你当前的环境修改 `env.sh` 里的路径。
@@ -51,7 +45,7 @@ export PATH=~/bin:$PATH
 ### cmake版本
 
 **注意**：从ROCm-5.3开始，编译rocBLAS需要cmake-3.18.6。ubuntu-20.04默认的cmake版本是cmake-3.16.3。
-需要下载<https://cmake.org/files/v3.18/cmake-3.18.6-Linux-x86_64.tar.gz>，解压到`/home/work/local`目录，
+需要下载<https://cmake.org/files/v3.18/cmake-3.18.6-Linux-x86_64.tar.gz>，解压到`${DEV_ROCM_HOME}/local`目录，
 再执行`source env.sh`将这个cmake加入PATH环境变量。
 如果想要使用其他路径，可以修改`env.sh`。
 
@@ -62,4 +56,3 @@ export PATH=~/bin:$PATH
 * [navi14](navi14/README_zh_CN.md) - 构建navi14的试验脚本。
 * [check](check/README_zh_CN.md) - 检查ROCm能否正常运行的一些代码。
 * [ubuntu2204](ubuntu2204/README_zh_CN.md) - ubuntu-22.04补丁。
-

@@ -29,10 +29,10 @@ export HSA_OVERRIDE_GFX_VERSION=10.3.0
 首先安装`rocm-dev`。这部分已经支持navi14了，不用重新编译。主要也是因为llvm-project编译太慢，可能要花几个小时。
 
 然后获取`rocm-build`。切换到`master`分支。
-比如，我们把rocm-build放在`/home/work/rocm-build`目录下。
+比如，我们把rocm-build放在`${DEV_ROCM_HOME}/rocm-build`目录下。
 
 ```
-cd /home/work
+cd ${DEV_ROCM_HOME}/
 
 git clone https://github.com/xuhuisheng/rocm-build
 cd rocm-build
@@ -46,7 +46,7 @@ source env.sh
 我们强制ROCm对navi14进行编译，这一步不需要实际的硬件。执行`source env.sh`初始化环境变量。
 
 首先编译rocBLAS，因为它有一点儿复杂，因为它依赖另一个名叫Tensile项目。Tensile已经包含在ROCm的repo源码里，我们需要打一个补丁。
-比如，ROCm使用repo将源码复制到`/home/work/ROCm`目录下。
+比如，ROCm使用repo将源码复制到`${DEV_ROCM_HOME}/ROCm`目录下。
 
 然后执行`bash navi14/22.rocblas.sh`编译rocBLAS，脚本里会自动打好补丁。（非常慢）
 
@@ -74,7 +74,7 @@ sudo apt install -y libopencv-highgui-dev libopenblas-dev python3-dev python3-pi
 pip3 install -r requirements.txt
 export PATH=/opt/rocm/bin:$PATH \
     ROCM_PATH=/opt/rocm \
-    HIP_PATH=/opt/rocm/hip 
+    HIP_PATH=/opt/rocm/hip
 export PYTORCH_ROCM_ARCH=gfx1012
 python3 tools/amd_build/build_amd.py
 USE_ROCM=1 USE_NINJA=1 python3 setup.py bdist_wheel

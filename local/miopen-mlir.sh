@@ -2,7 +2,7 @@
 
 set -e
 
-SRC_DIR=/home/work/llvm-project-mlir
+SRC_DIR=${DEV_ROCM_HOME}/llvm-project-mlir
 
 mkdir -p $ROCM_BUILD_DIR/miopen-mlir
 cd $ROCM_BUILD_DIR/miopen-mlir
@@ -17,7 +17,7 @@ START_TIME=`date +%s`
 cmake \
     -DBUILD_FAT_LIBMLIRMIOPEN=1 \
     -DCMAKE_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=Debug \
     -DCPACK_PACKAGING_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
     -DCPACK_GENERATOR=DEB \
     -DCPACK_DEBIAN_PACKAGE_MAINTAINER=amd \
@@ -25,11 +25,11 @@ cmake \
     $SRC_DIR
 ninja
 ninja package
-sudo dpkg -i *.deb
+# sudo dpkg -i *.deb
+cmake --install .
 
 END_TIME=`date +%s`
 EXECUTING_TIME=`expr $END_TIME - $START_TIME`
 echo "elapse : "$EXECUTING_TIME"s"
 
 popd
-

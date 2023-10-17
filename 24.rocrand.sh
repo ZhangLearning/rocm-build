@@ -12,14 +12,14 @@ git apply $ROCM_PATCH_DIR/24.rocrand-gitmodules-1.patch
 git submodule update --init
 cd $ROCM_BUILD_DIR/rocrand
 
-START_TIME=`date +%s`
+START_TIME=$(date +%s)
 
 CXX=$ROCM_INSTALL_DIR/hip/bin/hipcc cmake \
     -DAMDGPU_TARGETS=$AMDGPU_TARGETS \
     -DHIP_CLANG_INCLUDE_PATH=$ROCM_INSTALL_DIR/llvm/include \
     -DCMAKE_PREFIX_PATH=$ROCM_INSTALL_DIR:$ROCM_INSTALL_DIR/llvm \
     -DCMAKE_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=Debug \
     -DCPACK_SET_DESTDIR=OFF \
     -DCPACK_PACKAGING_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
     -DCMAKE_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
@@ -28,11 +28,11 @@ CXX=$ROCM_INSTALL_DIR/hip/bin/hipcc cmake \
 
 cmake --build .
 cmake --build . --target package
-sudo dpkg -i *.deb
+# sudo dpkg -i *.deb
+cmake --install .
 
-END_TIME=`date +%s`
-EXECUTING_TIME=`expr $END_TIME - $START_TIME`
+END_TIME=$(date +%s)
+EXECUTING_TIME=$(expr $END_TIME - $START_TIME)
 echo "elapse : "$EXECUTING_TIME"s"
 
 popd
-

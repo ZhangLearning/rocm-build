@@ -31,10 +31,10 @@ Please follow ROCm official installation guide for installing related dependenie
 First, install `rocm-dev`. This part already supports navi14, so we neednot re-compiling them. Since llvm-project may cost hours for compiling.
 
 Then clone `rocm-build`. Switch to `master` branch.
-For Example, we clone rocm-build to `/home/work/rocm-build`
+For Example, we clone rocm-build to `${DEV_ROCM_HOME}/rocm-build`
 
 ```
-cd /home/work
+cd ${DEV_ROCM_HOME}/
 
 git clone https://github.com/xuhuisheng/rocm-build
 cd rocm-build
@@ -48,7 +48,7 @@ Modify `env.sh`, find `AMDGPU_TARGETS`, change it to `AMDGPU_TARGETS="gfx1012"`,
 It will force ROCm to compile for navi14, even there is no matching hardware. Execute `source env.sh` to initialize environment variables.
 
 The rocBLAS is a little complex, it depends Tensile. Tensile had already included in ROCm source repo. We need use a patch.
-For Example, ROCm source repo path is `/home/work/ROCm/`
+For Example, ROCm source repo path is `${DEV_ROCM_HOME}/ROCm/`
 
 Then execute `bash navi14/22.rocblas.sh` to compile rocBLAS, there will use a patch for prevent compiling problems. (Very slow)
 
@@ -76,7 +76,7 @@ sudo apt install -y libopencv-highgui-dev libopenblas-dev python3-dev python3-pi
 pip3 install -r requirements.txt
 export PATH=/opt/rocm/bin:$PATH \
     ROCM_PATH=/opt/rocm \
-    HIP_PATH=/opt/rocm/hip 
+    HIP_PATH=/opt/rocm/hip
 export PYTORCH_ROCM_ARCH=gfx1012
 python3 tools/amd_build/build_amd.py
 USE_ROCM=1 USE_NINJA=1 python3 setup.py bdist_wheel
@@ -86,4 +86,3 @@ pip3 install dist/torch-1.12.0a0+git67ece03-cp38-cp38-linux_x86_64.whl
 ```
 
 Finally we got a pytorch-1.12.0 only can run on navi14.
-

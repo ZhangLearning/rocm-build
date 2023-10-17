@@ -6,10 +6,10 @@ mkdir -p $ROCM_BUILD_DIR/roctracer
 cd $ROCM_BUILD_DIR/roctracer
 pushd .
 
-START_TIME=`date +%s`
+START_TIME=$(date +%s)
 
 ROCTRACER_ROOT=$ROCM_GIT_DIR/roctracer
-BUILD_TYPE=Release
+BUILD_TYPE=Debug
 PREFIX_PATH=$ROCM_INSTALL_DIR
 PACKAGE_ROOT=$ROCM_INSTALL_DIR/roctracer
 PACKAGE_PREFIX=$ROCM_INSTALL_DIR/roctracer
@@ -35,11 +35,11 @@ cmake \
 
 cmake --build .
 cmake --build . --target package
-sudo dpkg -i *.deb
+# sudo dpkg -i *.deb
+cmake --install .
 
-END_TIME=`date +%s`
-EXECUTING_TIME=`expr $END_TIME - $START_TIME`
+END_TIME=$(date +%s)
+EXECUTING_TIME=$(expr $END_TIME - $START_TIME)
 echo "elapse : "$EXECUTING_TIME"s"
 
 popd
-
