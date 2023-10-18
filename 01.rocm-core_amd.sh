@@ -21,8 +21,8 @@ cmake \
     $ROCM_GIT_DIR/rocm-core
 
 cmake --build . --target package
-# sudo dpkg -i *.deb
-cmake --install .
+sudo dpkg -i *.deb
+# cmake --install .
 
 
 END_TIME=$(date +%s)

@@ -23,8 +23,8 @@ cmake --build . --target package_hipify-clang
 #ninja
 #sudo ninja install
 #ninja package_hipify-clang
-# sudo dpkg -i *.deb
-cmake --install .
+sudo dpkg -i *.deb
+# cmake --install .
 
 END_TIME=$(date +%s)
 EXECUTING_TIME=$(expr $END_TIME - $START_TIME)

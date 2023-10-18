@@ -2,7 +2,7 @@
 
 set -e
 
-rm -rf $ROCM_BUILD_DIR/clr
+# rm -rf $ROCM_BUILD_DIR/clr
 mkdir -p $ROCM_BUILD_DIR/clr
 cd $ROCM_BUILD_DIR/clr
 pushd .
@@ -16,6 +16,8 @@ START_TIME=$(date +%s)
 cmake \
     -DOFFLOAD_ARCH_STR="--offload-arch=$AMDGPU_TARGETS" \
     -DAMDGPU_TARGETS=$AMDGPU_TARGETS \
+    -DPROF_API_HEADER_PATH=$ROCM_GIT_DIR/roctracer/inc/ext/ \
+    -DOpenGL_GL_PREFERENCE=GLVND \
     -DCMAKE_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
     -DCPACK_PACKAGING_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
     -DROCM_PATH=$ROCM_INSTALL_DIR \
@@ -34,8 +36,8 @@ cmake \
 
 cmake --build .
 cmake --build . --target package
-# sudo dpkg -i *.deb
-cmake --install .
+sudo dpkg -i *.deb
+# cmake --install .
 #sudo dpkg -i hip-dev*.deb hip-doc*.deb hip-runtime-amd*.deb hip-samples*.deb
 
 END_TIME=$(date +%s)

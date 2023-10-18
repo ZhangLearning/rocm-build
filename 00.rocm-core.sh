@@ -19,8 +19,8 @@ cmake \
     $ROCM_BUILD_DIR/../src/rocm-core
 
 cmake --build . --target package
-# sudo dpkg -i *.deb
-cmake --install .
+sudo dpkg -i *.deb
+# cmake --install .
 
 END_TIME=$(date +%s)
 EXECUTING_TIME=$(expr $END_TIME - $START_TIME)

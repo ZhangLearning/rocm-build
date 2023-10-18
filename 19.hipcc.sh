@@ -15,7 +15,6 @@ START_TIME=$(date +%s)
 cmake \
     -DCMAKE_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
     -DCPACK_PACKAGING_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
-    -DROCM_PATH=$ROCM_INSTALL_DIR \
     -DCMAKE_BUILD_TYPE=Debug \
     -DCPACK_GENERATOR=DEB \
     -G Ninja \
@@ -33,6 +32,3 @@ EXECUTING_TIME=$(expr $END_TIME - $START_TIME)
 echo "elapse : "$EXECUTING_TIME"s"
 
 popd
---rocm-path=/usr \
-    --rocm-device-lib-path=/usr/lib/x86_64-linux-gnu/amdgcn/bitcode \
-    --hip-version=5.2.21153 \
