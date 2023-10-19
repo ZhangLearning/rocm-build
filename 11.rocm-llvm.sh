@@ -18,7 +18,7 @@ cmake \
     -DLLVM_ENABLE_ASSERTIONS=1 \
     -DLLVM_TARGETS_TO_BUILD="AMDGPU;X86" \
     -DLLVM_ENABLE_PROJECTS="compiler-rt;lld;clang" \
-    -DLLVM_PARALLEL_COMPILE_JOBS=$(($(nproc) / 4)) \
+    -DLLVM_PARALLEL_COMPILE_JOBS=2 \
     -DCPACK_PACKAGING_INSTALL_PREFIX=$ROCM_INSTALL_DIR/llvm/ \
     -DCPACK_GENERATOR=DEB \
     -DCPACK_DEBIAN_PACKAGE_MAINTAINER=amd \
@@ -29,8 +29,8 @@ cmake \
     $ROCM_GIT_DIR/llvm-project/llvm
 # -G "Unix Makefiles"
 
-cmake --build . -j $(($(nproc) / 4))
-cmake --build . --target package -j $(($(nproc) / 2))
+cmake --build .
+cmake --build . --target package
 sudo dpkg -i *.deb
 # cmake --install .
 
