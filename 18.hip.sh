@@ -27,7 +27,6 @@ cmake \
 
 cmake --build .
 cmake --build . --target package
-# sudo dpkg -i hip-dev*.deb hip-doc*.deb hip-runtime-amd*.deb hip-samples*.deb
 
 END_TIME=$(date +%s)
 EXECUTING_TIME=$(expr $END_TIME - $START_TIME)
