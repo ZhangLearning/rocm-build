@@ -32,6 +32,7 @@ cmake \
     -DHIP_CATCH_TEST=0 \
     -DCMAKE_BUILD_TYPE=Debug \
     -DCPACK_GENERATOR=DEB \
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
     -G Ninja \
     $ROCM_GIT_DIR/clr
 
