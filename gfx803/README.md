@@ -69,7 +69,7 @@ CXX=/opt/rocm/bin/hipcc cmake -lpthread \
     -DTensile_LOGIC=asm_full \
     -DTensile_ARCHITECTURE=all \
     -DTensile_CODE_OBJECT_VERSION=V3 \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=Debug \
     -DBUILD_WITH_TENSILE_HOST=ON \
     -DTensile_LIBRARY_FORMAT=yaml \
     -DRUN_HEADER_TESTING=OFF \
@@ -95,7 +95,7 @@ sudo dpkg -i *.deb
 
 ### Description
 
-There is a beta version Pytorch-1.9.0 on pytorch offical website. 
+There is a beta version Pytorch-1.9.0 on pytorch offical website.
 <https://pytorch.org/get-started/locally/>
 
 And it will crash on very beginning of running pytorch.
@@ -140,7 +140,7 @@ sudo apt install -y libopencv-highgui4.2 libopenblas-dev python3-dev python3-pip
 pip3 install -r requirements.txt
 export PATH=/opt/rocm/bin:$PATH \
     ROCM_PATH=/opt/rocm \
-    HIP_PATH=/opt/rocm/hip 
+    HIP_PATH=/opt/rocm/hip
 export PYTORCH_ROCM_ARCH=gfx803
 python3 tools/amd_build/build_amd.py
 USE_ROCM=1 USE_NINJA=1 python3 setup.py bdist_wheel
@@ -167,4 +167,3 @@ Create a symblic link for libtinfo.so, the current version of tinfo is 6, not 5.
 sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so /usr/lib/x86_64-linux-gnu/libtinfo.so.5
 
 ```
-

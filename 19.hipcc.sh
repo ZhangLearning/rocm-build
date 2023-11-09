@@ -11,25 +11,29 @@ else
     echo "env.sh has already been sourced."
 fi
 
-mkdir -p $ROCM_BUILD_DIR/roct-thunk-interface
-cd $ROCM_BUILD_DIR/roct-thunk-interface
+mkdir -p $ROCM_BUILD_DIR/HIPCC
+cd $ROCM_BUILD_DIR/HIPCC
 pushd .
+
+#ROCclr_DIR=$ROCM_GIT_DIR/ROCclr
+#OPENCL_DIR=$ROCM_GIT_DIR/ROCm-OpenCL-Runtime
+#HIP_DIR=$ROCM_GIT_DIR/HIP
 
 START_TIME=$(date +%s)
 
 cmake \
-	-DCMAKE_BUILD_TYPE=Debug \
+	-DCMAKE_PREFIX_PATH=$ROCM_BUILD_DIR/rocm-device-libs \
 	-DCMAKE_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
 	-DCPACK_PACKAGING_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
+	-DCMAKE_BUILD_TYPE=Debug \
 	-DCPACK_GENERATOR=DEB \
 	-DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-	-G "Ninja" \
-	$ROCM_GIT_DIR/ROCT-Thunk-Interface/
+	-G Ninja \
+	$ROCM_GIT_DIR/HIPCC
 
 cmake --build .
 cmake --build . --target package
 sudo dpkg -i *.deb
-# cmake --install .
 
 END_TIME=$(date +%s)
 EXECUTING_TIME=$(expr $END_TIME - $START_TIME)

@@ -14,7 +14,7 @@ cd $ROCM_BUILD_DIR/roct-thunk-interface
 START_TIME=`date +%s`
 
 cmake \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
     -DCPACK_PACKAGING_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
     -DCPACK_GENERATOR=DEB \
@@ -30,4 +30,3 @@ EXECUTING_TIME=`expr $END_TIME - $START_TIME`
 echo "elapse : "$EXECUTING_TIME"s"
 
 popd
-

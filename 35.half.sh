@@ -6,7 +6,7 @@ mkdir -p $ROCM_BUILD_DIR/half
 cd $ROCM_BUILD_DIR/half
 pushd .
 
-START_TIME=`date +%s`
+START_TIME=$(date +%s)
 
 # cp -R ../../meta/half_1.12.0_amd64 $ROCM_BUILD_DIR/half/
 
@@ -20,9 +20,8 @@ cmake $ROCM_GIT_DIR/half
 cmake --build . --target package
 sudo dpkg -i *.deb
 
-END_TIME=`date +%s`
-EXECUTING_TIME=`expr $END_TIME - $START_TIME`
+END_TIME=$(date +%s)
+EXECUTING_TIME=$(expr $END_TIME - $START_TIME)
 echo "elapse : "$EXECUTING_TIME"s"
 
 popd
-

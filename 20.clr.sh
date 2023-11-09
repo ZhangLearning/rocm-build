@@ -11,25 +11,36 @@ else
     echo "env.sh has already been sourced."
 fi
 
-mkdir -p $ROCM_BUILD_DIR/roct-thunk-interface
-cd $ROCM_BUILD_DIR/roct-thunk-interface
+mkdir -p $ROCM_BUILD_DIR/clr
+cd $ROCM_BUILD_DIR/clr
 pushd .
 
-START_TIME=$(date +%s)
+#ROCclr_DIR=$ROCM_GIT_DIR/ROCclr
+#OPENCL_DIR=$ROCM_GIT_DIR/ROCm-OpenCL-Runtime
+#HIP_DIR=$ROCM_GIT_DIR/HIP
 
+START_TIME=$(date +%s)
+#-DHIPCC_BIN_DIR=${ROCM_BUILD_DIR}/HIP/HIPCC/build \
+#-DCLR_BUILD_HIP=ON \
 cmake \
-	-DCMAKE_BUILD_TYPE=Debug \
 	-DCMAKE_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
 	-DCPACK_PACKAGING_INSTALL_PREFIX=$ROCM_INSTALL_DIR \
+	-DOpenGL_GL_PREFERENCE=GLVND \
+	-DHIP_COMMON_DIR=${ROCM_GIT_DIR}/HIP \
+	-DHIPCC_BIN_DIR=/opt/rocm/hip/bin \
+	-DCLR_BUILD_HIP=ON \
+	-DCLR_BUILD_OCL=ON \
+	-DHIP_PLATFORM=amd \
+	-DHIP_CATCH_TEST=0 \
+	-DCMAKE_BUILD_TYPE=Debug \
 	-DCPACK_GENERATOR=DEB \
 	-DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-	-G "Ninja" \
-	$ROCM_GIT_DIR/ROCT-Thunk-Interface/
+	-G Ninja \
+	$ROCM_GIT_DIR/clr
 
 cmake --build .
 cmake --build . --target package
 sudo dpkg -i *.deb
-# cmake --install .
 
 END_TIME=$(date +%s)
 EXECUTING_TIME=$(expr $END_TIME - $START_TIME)
